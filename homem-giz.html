@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Homem de giz</title>
+</head>
+
+<body>
+    <div class="container1">
+        <p><img src="https://images-na.ssl-images-amazon.com/images/I/41plxx8JdCL._SX346_BO1,204,203,200_.jpg" alt="imagem de um livro chamado O homem de giz "></p>
+        <h1>O HOMEM DE GIZ</h1>
+            <h5>Em 1986, Eddie e os amigos passam a maior parte dos dias andando de bicicleta pela pacata vizinhança em busca de aventuras. 
+                Os desenhos a giz são seu código secreto: homenzinhos rabiscados no asfalto; mensagens que só eles entendem.
+                Mas um desenho misterioso leva o grupo de crianças até um corpo desmembrado e espalhado em um bosque. 
+                Depois disso, nada mais é como antes.
+                Em 2016, Eddie se esforça para superar o passado, até que um dia ele e os amigos de infância recebem um mesmo aviso:
+                o desenho de um homem de giz enforcado. Quando um dos amigos aparece morto, Eddie tem certeza de que precisa descobrir o que de fato aconteceu trinta anos atrás.</h5>
+    </div>
+    <hr>
+
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      template: `
+        <div class="container">
+          <h3>Para dúvidas ou críticas deixe o seu comentario!</h3>
+          <br>
+          <div class="form-todo form-group">
+            <p>
+              <input placeholder="Nome" type="text" name="name" class="form-control" v-model="name" />
+            </p>
+            <p>
+              <textarea placeholder="Deixe o seu comentário aqui..." name="message"  class="form-control" v-model="message"></textarea>
+            </p>
+            <button v-on:click="addComment" type="submit" class="btn btn-primary">Comentar</button>
+          </div>
+          <div class="list-group">
+            <div class="list-group-item" v-for="(comment, index) in allComments">
+              <span class="comment__author">Autor: <strong>{{ comment.name }}</strong></span>
+              <p>{{ comment.message }}</p>
+            </div>
+          </div>
+          <hr />
+        </div>
+      `,
+      data() {
+        return {
+          comments: [],
+          name: '',
+          message: '' 
+        }
+      },
+      methods: {
+        addComment() {
+          if (this.message.trim() === '') {
+            alert("Por favor, preencha os campos solicitados!!");
+            return
+          }
+        
+          this.comments.push({
+            name: this.name,
+            message: this.message
+          });
+
+          this.name = '';
+          this.message = '';
+        },
+      },
+      computed: {
+        allComments() {
+          return this.comments.map(comment => ({
+            ...comment,
+            name: comment.name.trim() === '' ? 'Desconhecido' : comment.name
+          }))
+        }
+      },
+    })
+  </script>
+
+  <style>
+      body{
+        background-image: linear-gradient(black, #868483, black);
+      }
+
+      img{
+        max-height: 450px;
+        max-width: 350px;
+      }
+
+      .container1{
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          grid-template-columns: 1fr 1fr;
+          text-align: center;
+          align-items: center;
+          padding: 10px;
+      }
+
+  </style>
+</body>
+</html>

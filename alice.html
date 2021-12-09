@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Alice no pais das maravilhas</title>
+</head>
+
+<body>
+    <div class="container1">
+        <p><img src="https://images-na.ssl-images-amazon.com/images/I/91rtArfzScL.jpg" alt="imagem de um livro chamado Alice no país das maravilhas "></p>
+        <h1>ALICE NO PAÍS DAS MARAVILHAS</h1>
+            <h5>Uma menina, um coelho e uma história capazes de fazer qualquer um de nós voltar a sonhar. 
+                Alice é despertada de um leve sono ao pé de uma árvore por um coelho peculiar.
+                Uma criatura alva e falante com roupas engraçadas, que consulta seu relógio e reclama do próprio atraso. 
+                Curiosa como toda criança, Alice segue o animal até cair em um buraco sem fim que mudou para sempre a literatura infantil. 
+                Mais de 150 anos depois, Alice no País das Maravilhas continua repleto de ensinamentos para aqueles que ousaram seguir o Coelho Branco até sua toca.
+                Um clássico literário, uma obra que sobrevive à passagem do tempo, e que enriquece suas possibilidades de leitura. 
+                Alice no País das Maravilhas é uma leitura que encanta crianças com sua trama, arrebata entusiastas da linguagem com seus jogos de palavras,
+                 chama a atenção dos fãs do psicodélico por seus personagens, entre tantos outros interesses que as aventuras da pequena Alice atraem.</h5>
+    </div>
+    <hr>
+
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      template: `
+        <div class="container">
+          <h3>Para dúvidas ou críticas deixe o seu comentario!</h3>
+          <br>
+          <div class="form-todo form-group">
+            <p>
+              <input placeholder="Nome" type="text" name="name" class="form-control" v-model="name" />
+            </p>
+            <p>
+              <textarea placeholder="Deixe o seu comentário aqui..." name="message"  class="form-control" v-model="message"></textarea>
+            </p>
+            <button v-on:click="addComment" type="submit" class="btn btn-primary">Comentar</button>
+          </div>
+          <div class="list-group">
+            <div class="list-group-item" v-for="(comment, index) in allComments">
+              <span class="comment__author">Autor: <strong>{{ comment.name }}</strong></span>
+              <p>{{ comment.message }}</p>
+            </div>
+          </div>
+          <hr />
+        </div>
+      `,
+      data() {
+        return {
+          comments: [],
+          name: '',
+          message: '' 
+        }
+      },
+      methods: {
+        addComment() {
+          if (this.message.trim() === '') {
+            alert("Por favor, preencha os campos solicitados!!");
+            return
+          }
+        
+          this.comments.push({
+            name: this.name,
+            message: this.message
+          });
+
+          this.name = '';
+          this.message = '';
+        },
+      },
+      computed: {
+        allComments() {
+          return this.comments.map(comment => ({
+            ...comment,
+            name: comment.name.trim() === '' ? 'Desconhecido' : comment.name
+          }))
+        }
+      },
+    })
+  </script>
+
+  <style>
+      body{
+        background-image: linear-gradient(#8b0000, #f8889f, #8b0000);
+      }
+
+      img{
+        max-height: 450px;
+        max-width: 350px;
+      }
+
+      .container1{
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          grid-template-columns: 1fr 1fr;
+          text-align: center;
+          align-items: center;
+          padding: 10px;
+      }
+
+  </style>
+</body>
+</html>

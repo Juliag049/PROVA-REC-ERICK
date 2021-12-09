@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>O meu pé de laranja lima</title>
+</head>
+
+<body>
+    <div class="container1">
+        <p><img src="https://images-na.ssl-images-amazon.com/images/I/51n4Al9ZoWL.jpg" alt="imagem de um livro chamado O meu pé de laranja lima "></p>
+        <h1>O MEU PÉ DE LARANJA LIMA</h1>
+            <h5>Um clássico da literatura brasileira, com adaptações para a televisão, o cinema e o teatro, 
+                O Meu Pé de Laranja Lima é desses livros que marcam época. Lançado em 1968, 
+                trata-se de uma história fortemente autobiográfica, que demonstra a mão de um escritor experiente, 
+                ciente do efeito que pode provocar nos leitores com suas cenas e a composição de seus personagens. 
+                O protagonista Zezé tem 6 anos e mora num bairro modesto, na zona norte do Rio de Janeiro. 
+                O pai está desempregado, e a família passa por dificuldades. O menino vive aprontando, 
+                sem jamais se conformar com as limitações que o mundo lhe impõe – viaja com sua imaginação, brinca,
+                explora, descobre, responde aos adultos, mete-se em confusões, causa pequenos desastres. 
+                As surras que lhe aplicam seu pai e sua irmã mais velha são seu suplício, a ponto de fazê-lo querer desistir da vida.
+                No entanto, o apego ao mundo que criou felizmente sempre fala mais alto. Só não há remédio para a dor, 
+                para a perda. E Zezé muito cedo descobrirá isso. A alegria e a tristeza não poderiam estar mais bem combinadas do que nestas páginas. 
+                E isso, se não explica, justifica a imensa popularidade alcançada pelo livro.</h5>
+    </div>
+    <hr>
+
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      template: `
+        <div class="container">
+          <h3>Para dúvidas ou críticas deixe o seu comentario!</h3>
+          <br>
+          <div class="form-todo form-group">
+            <p>
+              <input placeholder="Nome" type="text" name="name" class="form-control" v-model="name" />
+            </p>
+            <p>
+              <textarea placeholder="Deixe o seu comentário aqui..." name="message"  class="form-control" v-model="message"></textarea>
+            </p>
+            <button v-on:click="addComment" type="submit" class="btn btn-primary">Comentar</button>
+          </div>
+          <div class="list-group">
+            <div class="list-group-item" v-for="(comment, index) in allComments">
+              <span class="comment__author">Autor: <strong>{{ comment.name }}</strong></span>
+              <p>{{ comment.message }}</p>
+            </div>
+          </div>
+          <hr />
+        </div>
+      `,
+      data() {
+        return {
+          comments: [],
+          name: '',
+          message: '' 
+        }
+      },
+      methods: {
+        addComment() {
+          if (this.message.trim() === '') {
+            alert("Por favor, preencha os campos solicitados!!");
+            return
+          }
+        
+          this.comments.push({
+            name: this.name,
+            message: this.message
+          });
+
+          this.name = '';
+          this.message = '';
+        },
+      },
+      computed: {
+        allComments() {
+          return this.comments.map(comment => ({
+            ...comment,
+            name: comment.name.trim() === '' ? 'Desconhecido' : comment.name
+          }))
+        }
+      },
+    })
+  </script>
+
+  <style>
+      body{
+        background-image: linear-gradient(#0c7288, #64d6f4, #0c7288);
+      }
+
+      img{
+        max-height: 450px;
+        max-width: 350px;
+      }
+      .container1{
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          grid-template-columns: 1fr 1fr;
+          text-align: center;
+          align-items: center;
+          padding: 10px;
+      }
+
+  </style>
+</body>
+</html>
